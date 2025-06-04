@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Login() {
   return (
         <>
@@ -44,9 +46,9 @@ export default function Login() {
       </div>
 
       <nav className="mt-5">
-        <a href="/auth/registro">
+        <Link to="/auth/registro">
           ¿No tienes cuenta? Crea una
-        </a>
+        </Link>
       </nav>
     </>
   )
