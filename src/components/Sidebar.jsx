@@ -16,6 +16,7 @@ export default function Sidebar() {
             >
                 {categorias.map(categoria => (
                     <Categoria
+                        key={categoria.id}
                         categoria={categoria}
                     />
                 ))}
