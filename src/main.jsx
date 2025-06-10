@@ -10,3 +10,12 @@ createRoot(document.getElementById('root')).render(
         </QuioscoProvider>
 )
 
+// ReactDOM.createRoot(document.getElementById('root')).render(
+//     <React.StrictMode>
+//         <QuioscoProvider>
+//             <RouterProvider router={router} />
+
+//         </QuioscoProvider>
+//     </React.StrictMode>
+// )
+
