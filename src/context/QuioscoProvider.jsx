@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { categorias as categoriasDB } from '../data/categorias'
 
@@ -10,6 +10,13 @@ const QuioscoProvider = ({ children }) => {
     const [modal, setModal] = useState(false);
     const [producto, setProducto] = useState({});
     const [pedido, setPedido] = useState([])
+    const [total, setTotal] = useState(0)
+
+    useEffect(() => {
+        const nuevoTotal = pedido.reduce( (total,producto) => (producto.precio * producto.cantidad) + total, 0 )
+        setTotal(nuevoTotal)
+    }, [pedido]) //Cada que el pedido cambie queremos actualizar el state para calcular el total
+
 
     const handleClickModal = () => {
         setModal(!modal)
@@ -35,7 +42,7 @@ const QuioscoProvider = ({ children }) => {
 
         } else {
             setPedido([...pedido, producto])
-            toast.success('Agregado al pedido')
+            toast.success('Agregado al Pedido')
         }
     }
 
@@ -43,6 +50,12 @@ const QuioscoProvider = ({ children }) => {
         const productoActualizar = pedido.filter(producto => producto.id === id)[0]
         setProducto(productoActualizar)
         setModal(!modal)
+    }
+
+    const handleEliminarProductosPedido = id => {
+        const pedidoActualizado = pedido.filter(producto => producto.id !== id)
+        setPedido(pedidoActualizado)
+        toast.success('Eliminado del Pedido')
     }
 
     return (
@@ -57,7 +70,9 @@ const QuioscoProvider = ({ children }) => {
                 handleSetProducto,
                 pedido,
                 handleAgregarPedido,
-                handleEditarCantidad
+                handleEditarCantidad,
+                handleEliminarProductosPedido,
+                total
             }}
 
 

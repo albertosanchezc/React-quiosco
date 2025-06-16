@@ -1,7 +1,7 @@
 import useQuiosco from "../hooks/useQuiosco";
 import { formatearDinero } from "../helpers";
 export default function ResumenProducto({producto}) {
-    const { handleEditarCantidad } = useQuiosco();
+    const { handleEditarCantidad, handleEliminarProductosPedido } = useQuiosco();
     const { id, nombre, precio, cantidad } = producto;
     
 
@@ -37,6 +37,7 @@ export default function ResumenProducto({producto}) {
                 <button
                     type="button"
                     className="bg-red-700 p-2 text-white rounded-md font-bold uppercase shadow-md text-center"
+                    onClick={() => {handleEliminarProductosPedido(id)}}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
