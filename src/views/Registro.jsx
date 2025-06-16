@@ -41,7 +41,7 @@ export default function Registro() {
           noValidate
         >
 
-          {errores ? errores.map(error => <Alerta>{error}</Alerta>) : null}
+          {errores ? errores.map(error => <Alerta key={error}>{error}</Alerta>) : null}
           <div className="mb-4">
             <label htmlFor="name"
               className="text-slate-800"
