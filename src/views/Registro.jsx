@@ -1,13 +1,47 @@
-import { Link } from "react-router-dom";
-
+import { createRef, useState } from "react";
+import { data, Link } from "react-router-dom";
+import clienteAxios from "../config/axios";
+import Alerta from "../components/Alerta";
 export default function Registro() {
+
+  const nameRef = createRef();
+  const emailRef = createRef();
+  const passwordRef = createRef();
+  const passwordConfirmationRef = createRef();
+
+  const [ errores, setErrores ] = useState([]);
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const datos = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      password_confirmation: passwordConfirmationRef.current.value
+
+    }
+    try {
+      const respuesta = await clienteAxios.post('/api/registro', datos)
+    } catch (error) {
+      setErrores(Object.values(error.response.data.errors));
+      
+    }
+
+  }
+
   return (
     <>
       <h1 className="text-4xl font-black">Crea tu Cuenta</h1>
       <p>Crea tu Cuenta llenando el formulario</p>
 
       <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
-        <form action="">
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+        >
+
+          {errores ? errores.map(error => <Alerta>{error}</Alerta>) : null}
           <div className="mb-4">
             <label htmlFor="name"
               className="text-slate-800"
@@ -19,6 +53,7 @@ export default function Registro() {
               className="mt-2 w-full p-3 bg-gray-100"
               name="name"
               placeholder="Tu nombre"
+              ref={nameRef}
             />
           </div>
 
@@ -34,6 +69,7 @@ export default function Registro() {
               className="mt-2 w-full p-3 bg-gray-100"
               name="email"
               placeholder="Tu Email"
+              ref={emailRef}
             />
           </div>
 
@@ -49,6 +85,8 @@ export default function Registro() {
               className="mt-2 w-full p-3 bg-gray-100"
               name="password"
               placeholder="Tu Password"
+              ref={passwordRef}
+
             />
           </div>
 
@@ -63,6 +101,8 @@ export default function Registro() {
               className="mt-2 w-full p-3 bg-gray-100"
               name="password"
               placeholder="Repetir Password"
+              ref={passwordConfirmationRef}
+
             />
           </div>
 
