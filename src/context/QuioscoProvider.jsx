@@ -28,6 +28,11 @@ const QuioscoProvider = ({children}) => {
     const handleAgregarPedido = ({categoria_id, imagen, ...producto}) => {
         setPedido([...pedido,producto])
         
+        if(pedido.some(pedidoState => pedidoState.id === pedido.id)){
+            const productoEdicion = pedido.filter( pedidoState => pedidoState.id === producto.id)[0]
+            setCantidad(productoEdicion.cantidad)
+            setEdicion
+        }
     }
 
     return (

@@ -1,7 +1,8 @@
 import useQuiosco from "../hooks/useQuiosco"
+import ResumenProducto from "./ResumenProducto";
 
 export default function Resumen() {
-  const {pedido} = useQuiosco();
+  const { pedido } = useQuiosco();
 
   return (
     <aside className='w-72 h-screen overflow-y-scroll p-5'>
@@ -18,26 +19,29 @@ export default function Resumen() {
             No hay elementos en tu pedido aún
           </p>
         ) : (
-          <p className="text-center text-2xl">
-            Si hay algo
-          </p>
-
+          pedido.map(producto => (
+            <ResumenProducto
+              key={producto.id}
+              producto={producto}
+            />
+          ))
         )}
+
       </div>
 
       <p className="text-xl mt-10">
         Total: {''}
       </p>
 
-        <form  className="w-full">
-          <div className="mt-5">
-            <input 
-              type="submit"
-              className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 rounded uppercase text-white font-bold text-center w-full cursor-pointer"
-              value='Confirmar Pedido'
-            />
-          </div>
-        </form>
+      <form className="w-full">
+        <div className="mt-5">
+          <input
+            type="submit"
+            className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 rounded uppercase text-white font-bold text-center w-full cursor-pointer"
+            value='Confirmar Pedido'
+          />
+        </div>
+      </form>
     </aside>
   )
 }
