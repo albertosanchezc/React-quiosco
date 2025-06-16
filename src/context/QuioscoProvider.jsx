@@ -6,6 +6,13 @@ const QuioscoProvider = ({children}) => {
 
     const [categorias, setCategorias] = useState(categoriasDB);
     const [categoriaActual, setcategoriaActual] = useState(categorias[0]);
+    const [modal, setModal] = useState(false);
+    const [producto, setProducto] = useState({});
+    
+
+    const handleClickModal = () => {
+        setModal(!modal)
+    }
 
     const handleClickCategoria = id => {
         const categoria = categorias.filter(categoria => categoria.id === id)[0]
@@ -13,12 +20,21 @@ const QuioscoProvider = ({children}) => {
         console.log(categoriaActual)
         
     } 
+
+    const handleSetProducto = producto => {
+        setProducto(producto)
+    }
+
     return (
         <QuioscoContext.Provider 
             value={{
                 categorias,
                 categoriaActual,
-                handleClickCategoria
+                handleClickCategoria,
+                modal,
+                handleClickModal,
+                producto,
+                handleSetProducto
             }}
         
         
