@@ -1,12 +1,12 @@
 import { createContext, useState, useEffect } from 'react'
+import axios from 'axios'
 import { toast } from 'react-toastify'
-import { categorias as categoriasDB } from '../data/categorias'
 
 const QuioscoContext = createContext()
 const QuioscoProvider = ({ children }) => {
 
-    const [categorias, setCategorias] = useState(categoriasDB);
-    const [categoriaActual, setcategoriaActual] = useState(categorias[0]);
+    const [categorias, setCategorias] = useState([]);
+    const [categoriaActual, setcategoriaActual] = useState([]);
     const [modal, setModal] = useState(false);
     const [producto, setProducto] = useState({});
     const [pedido, setPedido] = useState([])
@@ -17,6 +17,21 @@ const QuioscoProvider = ({ children }) => {
         setTotal(nuevoTotal)
     }, [pedido]) //Cada que el pedido cambie queremos actualizar el state para calcular el total
 
+
+    const obtenerCategorias = async () => {
+        try {
+            
+            const {data} = await axios('http://localhost/api/categorias')
+            setCategorias(data.data);
+            setcategoriaActual(data.data[0])
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        obtenerCategorias();
+    },[])
 
     const handleClickModal = () => {
         setModal(!modal)
