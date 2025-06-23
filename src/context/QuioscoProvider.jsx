@@ -12,15 +12,15 @@ const QuioscoProvider = ({ children }) => {
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
-        const nuevoTotal = pedido.reduce( (total,producto) => (producto.precio * producto.cantidad) + total, 0 )
+        const nuevoTotal = pedido.reduce((total, producto) => (producto.precio * producto.cantidad) + total, 0)
         setTotal(nuevoTotal)
     }, [pedido]) //Cada que el pedido cambie queremos actualizar el state para calcular el total
 
 
     const obtenerCategorias = async () => {
         try {
-            
-            const {data} = await clienteAxios('/api/categorias')
+
+            const { data } = await clienteAxios('/api/categorias')
             setCategorias(data.data);
             setcategoriaActual(data.data[0])
         } catch (error) {
@@ -30,7 +30,7 @@ const QuioscoProvider = ({ children }) => {
 
     useEffect(() => {
         obtenerCategorias();
-    },[])
+    }, [])
 
     const handleClickModal = () => {
         setModal(!modal)
@@ -72,6 +72,23 @@ const QuioscoProvider = ({ children }) => {
         toast.success('Eliminado del Pedido')
     }
 
+    const handleSubmitNuevaOrden = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN')
+
+        try {
+            await clienteAxios.post('/api/pedidos', [
+
+            ], {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
     return (
         <QuioscoContext.Provider
             value={{
@@ -86,7 +103,8 @@ const QuioscoProvider = ({ children }) => {
                 handleAgregarPedido,
                 handleEditarCantidad,
                 handleEliminarProductosPedido,
-                total
+                total,
+                handleSubmitNuevaOrden
             }}
 
 
