@@ -23,6 +23,8 @@ export default function Registro() {
     }
     try {
       const respuesta = await clienteAxios.post('/api/registro', datos)
+      console.log(respuesta.data)
+      
     } catch (error) {
       setErrores(Object.values(error.response.data.errors));
       
@@ -36,7 +38,7 @@ export default function Registro() {
       <p>Crea tu Cuenta llenando el formulario</p>
 
       <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
-        <form
+        <form method="POST"
           onSubmit={handleSubmit}
           noValidate
         >
