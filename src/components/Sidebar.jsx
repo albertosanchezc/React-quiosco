@@ -15,7 +15,7 @@ export default function Sidebar() {
                     className="w-40" />
             </div>
 
-            <p className='my-10 text-center'>Hola: <span className='font-bold text-xl'>{user.name}</span></p>
+            <p className='my-10 text-center'>Hola: {user ? <span className='font-bold text-xl'>{user.name}</span> : <span className='font-bold text-xl'>Cargando...</span>}</p>
 
             <div
                 className="mt-10"
