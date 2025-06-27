@@ -76,9 +76,11 @@ const QuioscoProvider = ({ children }) => {
         const token = localStorage.getItem('AUTH_TOKEN')
 
         try {
-            await clienteAxios.post('/api/pedidos', [
-
-            ], {
+            await clienteAxios.post('/api/pedidos', 
+            {
+                total
+            },
+            {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
