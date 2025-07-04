@@ -72,7 +72,7 @@ export default function Login() {
 
           <input
             type="submit"
-            value="Crear Cuenta"
+            value="Iniciar Sesión"
             className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold cursor-pointer"
           />
         </form>
